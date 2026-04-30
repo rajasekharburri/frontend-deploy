@@ -103,7 +103,7 @@ spec:
             name: frontend
         ports:
         - name: liveness-port
-          containerPort: 80
+          containerPort: 8080
         readinessProbe:
           httpGet:
             path: /health
@@ -111,11 +111,11 @@ spec:
           failureThreshold: 10
           periodSeconds: 10
         livenessProbe:
-         httpGet:
-         path: /
-         port: liveness-port
-         initialDelaySeconds: 10
-         periodSeconds: 10
+          httpGet:
+            path: /health
+            port: liveness-port
+          failureThreshold: 3
+          periodSeconds: 10
         volumeMounts:
           - name: nginx-config
             mountPath: /etc/nginx/nginx.conf
